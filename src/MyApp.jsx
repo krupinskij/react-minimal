@@ -1,6 +1,8 @@
 import React from 'react'
 import AppTitle from './AppTitle';
 
+const generateArray = (n) => { return Array.from(Array(n), (e,i)=>i+1) };
+
 const MyApp = () => (
   <div>
     <AppTitle />
