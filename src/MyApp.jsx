@@ -7,6 +7,9 @@ const generateRandomArray = (n) => { return Array.from(Array(n), (e)=>Math.floor
 
 const arr1 = [2, 56, 23, 88, 17, 4];
 
+const arr2 = [2, 5, 8, 10];
+const generateSqrtArray = (arr) => { return arr.map(x => Math.sqrt(x)) };
+
 const MyApp = () => (
   <div>
     <AppTitle />
@@ -14,6 +17,7 @@ const MyApp = () => (
     <p>{ generateArray(13).toString() }</p>
     <p>{ generateRandomArray(15).toString() }</p>
     <p>{ arr1.filter(x => x>15).toString() }</p>
+    <p>{ generateSqrtArray(arr2).toString() }</p>
   </div>
 )
 
