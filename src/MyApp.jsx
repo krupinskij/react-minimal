@@ -1,9 +1,10 @@
 import React from 'react'
 import AppTitle from './AppTitle';
+import Printer from './Printer';
 
-const generateArray = (n) => { return Array.from(Array(n), (e,i)=>i+1) };
+const generateArray = (n) => { return Array.from(Array(n), (e, i) => i + 1) };
 
-const generateRandomArray = (n) => { return Array.from(Array(n), (e)=>Math.floor(Math.random()*25)+1) };
+const generateRandomArray = (n) => { return Array.from(Array(n), (e) => Math.floor(Math.random() * 25) + 1) };
 
 const arr1 = [2, 56, 23, 88, 17, 4];
 
@@ -70,15 +71,72 @@ const data = [
   }
 ]
 
-const MyApp = () => (
-  <div>
-    <AppTitle />
-    <p>Bundle size: 91 bytes, Load time of the bundle: 44 ms, Last commit SHA1: b6347b74590b7816a799cf0c5322fef5fc54aa66</p>
-    <p>{ generateArray(13).toString() }</p>
-    <p>{ generateRandomArray(15).toString() }</p>
-    <p>{ arr1.filter(x => x>15).toString() }</p>
-    <p>{ generateSqrtArray(arr2).toString() }</p>
-  </div>
-)
+
+class MyApp extends React.Component {
+
+  takeAllStudents = () => {
+    const students = [];
+    data.forEach(lecture => {
+      lecture.students.forEach(student => {
+        students.push(student);
+      })
+    });
+
+    this.setState({
+      data: students
+    })
+  }
+
+  sortStudents = () => {
+    const students = [];
+    data.forEach(lecture => {
+      lecture.students.forEach(student => {
+        students.push(student);
+      })
+    });
+
+    students.sort((s1, s2) => { return s1.name > s2.name })
+
+    this.setState({
+      data: students
+    })
+  }
+
+  takeOldStudents = () => {
+    const students = [];
+    data.forEach(lecture => {
+      if (lecture.active) lecture.students.forEach(student => {
+        if (student.age > 20) students.push(student);
+      })
+    });
+
+    this.setState({
+      data: students
+    })
+  }
+
+  state = {
+    data: []
+  }
+
+  render() {
+    return (
+      <div>
+        <AppTitle />
+        <p>Bundle size: 91 bytes, Load time of the bundle: 44 ms, Last commit SHA1: b6347b74590b7816a799cf0c5322fef5fc54aa66</p>
+        <p>{generateArray(13).toString()}</p>
+        <p>{generateRandomArray(15).toString()}</p>
+        <p>{arr1.filter(x => x > 15).toString()}</p>
+        <p>{generateSqrtArray(arr2).toString()}</p>
+
+        <button onClick={this.takeAllStudents}>All students</button>
+        <button onClick={this.sortStudents}>Sort students</button>
+        <button onClick={this.takeOldStudents}>Old students</button>
+
+        <Printer data={this.state.data} />
+      </div>
+    )
+  }
+}
 
 export default MyApp
