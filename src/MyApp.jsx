@@ -3,6 +3,8 @@ import AppTitle from './AppTitle';
 
 const generateArray = (n) => { return Array.from(Array(n), (e,i)=>i+1) };
 
+const generateRandomArray = (n) => { return Array.from(Array(n), (e)=>Math.floor(Math.random()*25)+1) };
+
 const MyApp = () => (
   <div>
     <AppTitle />
