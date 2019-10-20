@@ -138,16 +138,40 @@ class MyApp extends React.Component {
     }
   }
 
+  incRenders = () => {
+    const rC = this.state.renderCount;
+
+    //this.setState({
+    // renderCount: rC+1
+    //})
+    //console.log(rC+1);
+  }
+
+  startRendering = () => {
+    this.renderCount++;
+    console.time("render - " + this.renderCount);
+    
+  }
+
+  endRendering = () => {
+    console.timeEnd("render - " + this.renderCount);
+  }
+
+  renderCount = 0;
+
   state = {
     data: [],
     a: null,
-    b: null
+    b: null,
+
   }
 
   render() {
+    
     return (
       <div>
         <AppTitle />
+        {this.startRendering()}
         <p>Bundle size: 91 bytes, Load time of the bundle: 44 ms, Last commit SHA1: b6347b74590b7816a799cf0c5322fef5fc54aa66</p>
         <p>{generateArray(13).toString()}</p>
         <p>{generateRandomArray(15).toString()}</p>
@@ -166,6 +190,7 @@ class MyApp extends React.Component {
         <input type="number" name="b" id="inputB" onKeyPress={this.checkKey} onChange={this.inputChange} />
 
         <p>{generateArrayMod(this.state.a, this.state.b).toString()}</p>
+        {this.endRendering()}
       </div>
     )
   }
