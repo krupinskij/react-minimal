@@ -122,12 +122,27 @@ class MyApp extends React.Component {
 
   inputChange = () => {
 
-    const l = event.target.name;
+    const num = +event.target.value;
+    if(event.target.name==="a") {
+      this.setState({
+        a: num,
+        array: generateArrayMod(num, this.state.b),
+        processedArray: []
+      })
+
+      console.log("Value changed a: " + num)
+    } else {
+      this.setState({
+        b: num,
+        array: generateArrayMod(this.state.a, num),
+        processedArray: []
+      })
+
+      console.log("Value changed b: " + num)
+    }
     
-    this.setState({
-      [l]: +event.target.value
-    })
-    console.log("Value changed " + l + ": " + event.target.value)
+    
+    
   }
 
   checkKey = () => {
@@ -136,15 +151,6 @@ class MyApp extends React.Component {
     if (charCode < 48 || charCode > 57) {
       event.preventDefault();
     }
-  }
-
-  incRenders = () => {
-    const rC = this.state.renderCount;
-
-    //this.setState({
-    // renderCount: rC+1
-    //})
-    //console.log(rC+1);
   }
 
   startRendering = () => {
@@ -159,11 +165,21 @@ class MyApp extends React.Component {
 
   renderCount = 0;
 
+  processArray = () => {
+    const pA = generateSqrtArray(this.state.array);
+
+    this.setState({
+      processedArray: pA
+    })
+  }
+
   state = {
     data: [],
     a: null,
     b: null,
 
+    array: [],
+    processedArray: []
   }
 
   render() {
@@ -189,7 +205,11 @@ class MyApp extends React.Component {
         <label htmlFor="inputB">Liczba b: </label>
         <input type="number" name="b" id="inputB" onKeyPress={this.checkKey} onChange={this.inputChange} />
 
-        <p>{generateArrayMod(this.state.a, this.state.b).toString()}</p>
+        <p>{ this.state.array.toString() }</p>
+
+        <button onClick={ this.processArray }>Process array</button>
+        <p>{ this.state.processedArray.toString() }</p>
+        
         {this.endRendering()}
       </div>
     )
