@@ -115,8 +115,28 @@ class MyApp extends React.Component {
     })
   }
 
+  inputChange = () => {
+
+    const l = event.target.name;
+    
+    this.setState({
+      [l]: event.target.value
+    })
+    console.log("Value changed " + l + ": " + event.target.value)
+  }
+
+  checkKey = () => {
+    let charCode = event.keyCode;
+
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault();
+    }
+  }
+
   state = {
-    data: []
+    data: [],
+    a: null,
+    b: null
   }
 
   render() {
@@ -134,6 +154,11 @@ class MyApp extends React.Component {
         <button onClick={this.takeOldStudents}>Old students</button>
 
         <Printer data={this.state.data} />
+
+        <label htmlFor="inputA">Liczba a: </label>
+        <input type="number" name="a" id="inputA" onKeyPress={this.checkKey} onChange={this.inputChange} /> <br/>
+        <label htmlFor="inputB">Liczba b: </label>
+        <input type="number" name="b" id="inputB" onKeyPress={this.checkKey} onChange={this.inputChange} />
       </div>
     )
   }
