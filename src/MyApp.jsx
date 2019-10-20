@@ -4,6 +4,11 @@ import Printer from './Printer';
 
 const generateArray = (n) => { return Array.from(Array(n), (e, i) => i + 1) };
 
+const generateArrayMod = (a,b) => {
+  if(a<0 || a>b) return [];
+  return Array.from(Array(b-a + 1), (e, i) => i + a)
+};
+
 const generateRandomArray = (n) => { return Array.from(Array(n), (e) => Math.floor(Math.random() * 25) + 1) };
 
 const arr1 = [2, 56, 23, 88, 17, 4];
@@ -120,7 +125,7 @@ class MyApp extends React.Component {
     const l = event.target.name;
     
     this.setState({
-      [l]: event.target.value
+      [l]: +event.target.value
     })
     console.log("Value changed " + l + ": " + event.target.value)
   }
@@ -159,6 +164,8 @@ class MyApp extends React.Component {
         <input type="number" name="a" id="inputA" onKeyPress={this.checkKey} onChange={this.inputChange} /> <br/>
         <label htmlFor="inputB">Liczba b: </label>
         <input type="number" name="b" id="inputB" onKeyPress={this.checkKey} onChange={this.inputChange} />
+
+        <p>{generateArrayMod(this.state.a, this.state.b).toString()}</p>
       </div>
     )
   }
